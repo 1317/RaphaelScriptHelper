@@ -14,13 +14,13 @@ scale = 0.5
 save_file_path = "./img/"
 
 # py变量字典文件
-pos_img_dict = "./testDict.py"
+pos_img_dict = "./ResourceDictionary.py"
 
 # 动作类型 1=截图  2=标点  3=标线（取起终点组成向量） 4=标记区域
-action = 4
+action = 1
 
 # 图片来源替换输入你的did
-ADBHelper.screenCapture("did", "screen.png")
+ADBHelper.screenCapture("cda135e9", "screen.png")
 img_file = "./screen.png"
 
 

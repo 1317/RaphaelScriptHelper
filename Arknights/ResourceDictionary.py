@@ -4,35 +4,41 @@ finish = "./img/finish.png"
 
 
 #指挥分队按钮，点两次，第二次是确认
-zhihuifendui = (335,820)
+zhihuifendui = (352, 896)
 
 #稳扎稳打选项，点两次，第二次是确认
-wenzhawenda = (960,820)
+wenzhawenda = (1022, 892)
 
-zhongzhuang = (733,744)
+zhongzhuang = (806, 814)
 linguang = (1587,644)
+gumi = (2130, 830)
 
-juji = (1598,731)
-landu = (928,424)
+juji = (1662, 822)
+landu = (1538, 218)
 
-shushi = (1168,686)
-yanrong = (1016,430)
+shushi = (1234, 812)
+yanrong = (948, 432)
 
 #选完人以后跳过
-skip = (2173,85)
+skip = (2290,85)
 #选完干员以后确认
 querenganyuan = (2092,1024)
 
 speed_1x = "./img/1x_speed.png"
 bottom = (1169,920)
 
+# 干员图标
 fight_icon_linguang = "./img/linguang.png"
+fight_icon_gumi = "./img/gumi.png"
 fight_icon_landu = "./img/landu.png"
 fight_icon_yanrong = "./img/yanrong.png"
 
-yuchongweiban_linguang = (1096, 558)
-yuchongweiban_landu = (1214, 534)
-yuchongweiban_yanrong = (972, 664)
+# 与虫为伴
+yuchongweiban_gumi = (1176, 558)
+yuchongweiban_landu = (1294, 534)
+yuchongweiban_yanrong = (1062, 664)
+
+
 kaishixingdong = "./img/kaishixingdong.png"
 success_pass = "./img/success_pass.png"
 nazou = "./img/nazou.png"
@@ -73,13 +79,14 @@ enter_game = "./img/enter_game.png"
 
 right_slide_down = ((1846, 844), (1846, 232))
 bottom_slide_left = ((1760, 860), (350, 860))
-quchangbuduan = (1380, 856)
-yiwai_landu = (1276, 366)
-yiwai_linguang = (1284, 490)
-yiwai_yanrong = (1402, 356)
-lipaoxiaodui_linguang = (972, 512)
-lipaoxiaodui_landu = (978, 398)
-lipaoxiaodui_yanrong = (960, 616)
-xunshouxiaowu_linguang = (1776, 522)
-xunshouxiaowu_landu = (1748, 374)
-xunshouxiaowu_yanrong = (1596, 390)
+quchangbuduan = (1460, 856)
+yiwai_landu = (1356, 366)
+yiwai_gumi = (1364, 490)
+yiwai_yanrong = (1482, 356)
+lipaoxiaodui_gumi = (1052, 512)
+lipaoxiaodui_landu = (1058, 398)
+lipaoxiaodui_yanrong = (1040, 616)
+xunshouxiaowu_gumi = (1856, 522)
+xunshouxiaowu_landu = (1828, 374)
+xunshouxiaowu_yanrong = (1686, 390)
+geshsgwesh = "./img/geshsgwesh.png"

@@ -5,8 +5,8 @@ accuracy = 0.93
 cache_path = './cache/'
 
 #随机延时范围[randomDelayMin,randomDelayMax]，单位秒
-randomDelayMin = 1
-randomDelayMax = 5
+randomDelayMin = 0.5
+randomDelayMax = 2
 
 #点击偏移范围，[0,x]
 touchPosRange = 8

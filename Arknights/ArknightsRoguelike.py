@@ -17,10 +17,12 @@ class Direction(Enum):
 # =======================================================================
 
 # 安卓设备的DID
-gamer.deviceID = "127.0.0.1:62001"
+gamer.deviceID = "cda135e9"
 
 # 从点击开始以后到进入正式游戏界面之前的前期准备部分
 def init_front():
+    gamer.touch(((1236, 980))) # 静音小队
+    gamer.random_delay()
     # 选择分队
     gamer.touch(rd.zhihuifendui)
     gamer.random_delay()
@@ -36,7 +38,7 @@ def init_front():
     #选择第一个职业和干员
     gamer.touch(rd.zhongzhuang)
     gamer.random_delay()
-    gamer.touch(rd.linguang)
+    gamer.touch(rd.gumi) # 古米
     gamer.random_delay()
     gamer.touch(rd.querenganyuan)
     gamer.random_delay()
@@ -66,6 +68,7 @@ def init_front():
     #选择第三个职业和干员
     gamer.touch(rd.shushi)
     gamer.random_delay()
+    #gamer.slide(((2324, 528),(186, 484)))
     gamer.touch(rd.yanrong)
     gamer.random_delay()
     gamer.touch(rd.querenganyuan)
@@ -84,7 +87,7 @@ def fight_yu_chong_wei_ban():
         gamer.delay(4)
 
         # 这一行代码的意思是将临光放在指定位置，朝向向上，下同，这些都可以自己替换掉
-        fight_agent_arrange(rd.fight_icon_linguang, rd.yuchongweiban_linguang, Direction.UP)
+        fight_agent_arrange(rd.fight_icon_gumi, rd.yuchongweiban_gumi, Direction.UP)
         # 放完临光后延时5秒再放下一个干员（注意费用回复时间）
         gamer.delay(5)
 
@@ -103,7 +106,11 @@ def fight_xun_shou_xiao_wu():
     for i in range(4):
         gamer.delay(4)
 
+<<<<<<< Updated upstream
         fight_agent_arrange(rd.fight_icon_linguang, rd.xunshouxiaowu_linguang, Direction.Right)
+=======
+        fight_agent_arrange(rd.fight_icon_gumi, rd.xunshouxiaowu_gumi, Direction.RIGHT)
+>>>>>>> Stashed changes
         gamer.delay(5)
 
         fight_agent_arrange(rd.fight_icon_landu, rd.xunshouxiaowu_landu, Direction.LEFT)
@@ -120,7 +127,7 @@ def fight_li_pao_xiao_dui():
     for i in range(4):
         gamer.delay(4)
 
-        fight_agent_arrange(rd.fight_icon_linguang, rd.lipaoxiaodui_linguang, Direction.RIGHT)
+        fight_agent_arrange(rd.fight_icon_gumi, rd.lipaoxiaodui_gumi, Direction.RIGHT)
         gamer.delay(5)
 
         fight_agent_arrange(rd.fight_icon_landu, rd.lipaoxiaodui_landu, Direction.RIGHT)
@@ -140,7 +147,7 @@ def fight_yi_wai():
         fight_agent_arrange(rd.fight_icon_landu, rd.yiwai_landu, Direction.DOWN)
         gamer.delay(5)
 
-        fight_agent_arrange(rd.fight_icon_linguang, rd.yiwai_linguang, Direction.LEFT)
+        fight_agent_arrange(rd.fight_icon_gumi, rd.yiwai_gumi, Direction.LEFT)
         gamer.delay(8)
 
         fight_agent_arrange(rd.fight_icon_yanrong, rd.yiwai_yanrong, Direction.DOWN)
@@ -216,6 +223,7 @@ def process_after_fight():
             gamer.random_delay()
             gamer.find_pic_touch(rd.nazou)
             gamer.delay(1)
+
             gamer.find_pic_touch(rd.exit)
             gamer.delay(0.5)
             if gamer.find_pic_touch(rd.exit_confirm):

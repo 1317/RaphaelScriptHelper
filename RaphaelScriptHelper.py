@@ -31,7 +31,7 @@ def random_pos(pos):
 
 # 智能模拟点击某个点，将会随机点击以这个点为中心一定范围内的某个点，并随机按下时长
 def touch(pos):
-    randTime = random.randint(0, st.touchDelayRange)
+    randTime = random.randint(10, st.touchDelayRange)
     _pos = random_pos(pos)
     print("【模拟点击】点击坐标 {0} {1} 毫秒".format(_pos, randTime))
     if randTime < 10:
