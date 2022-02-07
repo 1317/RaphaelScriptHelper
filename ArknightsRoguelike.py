@@ -325,20 +325,26 @@ def guiyixingshang():
         gamer.delay(3)
         gamer.random_delay()
         if gamer.find_pic_touch(rd.touzi_enter):
-            gamer.find_pic_touch(rd.touzirukou)
-            gamer.random_delay()
-            pos = gamer.find_pic(rd.touzi_confirm, True)
-            for i in range(0,20): #点20次 投资确认
+            if gamer.find_pic_touch(rd.touzirukou):
+                gamer.random_delay()
+
+                try:
+                    pos = gamer.find_pic(rd.touzi_confirm, True)
+                    for i in range(0,20): #点20次 投资确认
+                        gamer.touch(pos)
+                        gamer.delay(0.5)
+                    gamer.find_pic_touch(rd.suanle)
+                    gamer.random_delay()
+                except:
+                    pass
+
+                gamer.find_pic_touch(rd.suanle2)
+                gamer.random_delay()
+                pos = gamer.find_pic(rd.exit_shop)
                 gamer.touch(pos)
-                gamer.delay(0.5)
-            gamer.find_pic_touch(rd.suanle)
-            gamer.random_delay()
-            gamer.find_pic_touch(rd.suanle2)
-            gamer.random_delay()
-            pos = gamer.find_pic(rd.exit_shop)
-            gamer.touch(pos)
-            gamer.random_delay()
-            gamer.touch(pos)
+                gamer.random_delay()
+                gamer.touch(pos)
+
         else:
             pos = gamer.find_pic(rd.exit_shop)
             gamer.touch(pos)
