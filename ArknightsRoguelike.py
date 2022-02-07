@@ -5,6 +5,7 @@ import RaphaelScriptHelper as gamer
 import multiprocessing
 import ResourceDictionary as rd
 import settings
+import time
 from enum import Enum
 
 class Direction(Enum):
@@ -104,7 +105,7 @@ fight_xun_shou_xiao_wu_duration = 80
 # 驯兽小屋打法 在此定义 参考 与虫为伴的注释
 def fight_xun_shou_xiao_wu():
     for i in range(4):
-        gamer.delay(4)
+        gamer.delay(3.5)
 
         fight_agent_arrange(rd.fight_icon_gumi, rd.xunshouxiaowu_gumi, Direction.RIGHT)
         gamer.delay(5)
@@ -445,4 +446,7 @@ while True:
             gamer.random_delay()
             exit_game()
     else:
+        with open('log',encoding='utf-8',mode='w') as f:
+            f.write(time.strftime('%Y-%m-%d %H:%M:%S'))
         break
+
