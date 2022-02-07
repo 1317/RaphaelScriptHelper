@@ -115,7 +115,7 @@ fight_xun_shou_xiao_wu_duration = 80
 def fight_xun_shou_xiao_wu():
     logging.info('- 驯兽小屋 -')
     for i in range(4):
-        gamer.delay(3.5)
+        gamer.delay(3)
 
         fight_agent_arrange(rd.fight_icon_gumi, rd.xunshouxiaowu_gumi, Direction.RIGHT)
         gamer.delay(5)
