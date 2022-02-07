@@ -78,7 +78,7 @@ rg_start = "./img/rg_start.png"
 enter_game = "./img/enter_game.png"
 
 right_slide_down = ((1846, 844), (1846, 232))
-bottom_slide_left = ((1760, 860), (350, 860))
+bottom_slide_left = ((1760, 860), (750, 860))
 quchangbuduan = (1460, 856)
 yiwai_landu = (1356, 366)
 yiwai_gumi = (1364, 490)

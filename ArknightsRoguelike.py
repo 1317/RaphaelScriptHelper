@@ -85,7 +85,7 @@ fight_yu_chong_wei_ban_duration = 80
 def fight_yu_chong_wei_ban():
     for i in range(4): # 循环做4次，以防中途有干员被打死然后就不部署了
         # 刚进游戏画面时的延时，这里不需要设置太高，因为此时已经是二倍速状态，如果一开始使用的干员费用较高可以适当增大此值
-        gamer.delay(4)
+        gamer.delay(3.5)
 
         # 这一行代码的意思是将临光放在指定位置，朝向向上，下同，这些都可以自己替换掉
         fight_agent_arrange(rd.fight_icon_gumi, rd.yuchongweiban_gumi, Direction.UP)
@@ -122,7 +122,7 @@ fight_li_pao_xiao_dui_duration = 80
 # 礼炮小队打法 在此定义 参考 与虫为伴的注释
 def fight_li_pao_xiao_dui():
     for i in range(4):
-        gamer.delay(4)
+        gamer.delay(3.5)
 
         fight_agent_arrange(rd.fight_icon_gumi, rd.lipaoxiaodui_gumi, Direction.RIGHT)
         gamer.delay(5)
@@ -139,7 +139,7 @@ fight_yi_wai_duration = 80
 # 意外打法 在此定义 参考 与虫为伴的注释
 def fight_yi_wai():
     for i in range(4):
-        gamer.delay(4)
+        gamer.delay(3.5)
 
         fight_agent_arrange(rd.fight_icon_landu, rd.yiwai_landu, Direction.DOWN)
         gamer.delay(5)
