@@ -371,7 +371,7 @@ def guiyixingshang():
                         gamer.delay(0.5)
                     gamer.find_pic_touch(rd.suanle)
                     gamer.random_delay()
-                    logging.info('成功进行投资')
+                    logging.info('投资成功')
                 except:
                     logging.error('投资失败', exc_info=True, stack_info=True)
                     pass
