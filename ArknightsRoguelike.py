@@ -1,12 +1,21 @@
 # 请参考视频教程 https://www.bilibili.com/video/BV1u3411E7KD/ 改写此脚本后再运行
 # 请注意视频教程或文字教程中的相关注意事项
 
-import RaphaelScriptHelper as gamer
+import logging
 import multiprocessing
+from enum import Enum
+
+import RaphaelScriptHelper as gamer
 import ResourceDictionary as rd
 import settings
-import time
-from enum import Enum
+
+logging.basicConfig(level=logging.INFO, filename='rg.log', format='%(asctime)s [%(levelname)s] %(message)s',
+                    datefmt='%Y/%m/%d %H:%M:%S')
+
+game_count = 0
+statistic_conclusion = []
+statistic_template = {'战斗': [], '不期而遇': 0, '幕间余兴': 0, '诡异行商': 0, '投资系统': 0}
+
 
 class Direction(Enum):
     UP = 0
@@ -14,32 +23,37 @@ class Direction(Enum):
     LEFT = 2
     RIGHT = 3
 
+
 # 请在跑脚本之前参考教程修改这一部分
 # =======================================================================
 
 # 安卓设备的DID
 gamer.deviceID = "cda135e9"
 
+
 # 从点击开始以后到进入正式游戏界面之前的前期准备部分
 def init_front():
-    gamer.touch(((1236, 980))) # 静音小队
+    gamer.touch(((1236, 980)))  # 静音小队
     gamer.random_delay()
     # 选择分队
+    logging.info('选择分队')
     gamer.touch(rd.zhihuifendui)
     gamer.random_delay()
     gamer.touch(rd.zhihuifendui)
     gamer.random_delay()
 
     # 选择招募组合
+    logging.info('选择招募组合')
     gamer.touch(rd.wenzhawenda)
     gamer.random_delay()
     gamer.touch(rd.wenzhawenda)
     gamer.random_delay()
 
-    #选择第一个职业和干员
+    # 选择第一个职业和干员
+    logging.info('选择第一个职业和干员')
     gamer.touch(rd.zhongzhuang)
     gamer.random_delay()
-    gamer.touch(rd.gumi) # 古米
+    gamer.touch(rd.gumi)  # 古米
     gamer.random_delay()
     gamer.touch(rd.querenganyuan)
     gamer.random_delay()
@@ -51,7 +65,8 @@ def init_front():
     gamer.random_delay()
     gamer.delay(3)
 
-    #选择第二个职业和干员
+    # 选择第二个职业和干员
+    logging.info('选择第二个职业和干员')
     gamer.touch(rd.juji)
     gamer.random_delay()
     gamer.touch(rd.landu)
@@ -66,24 +81,27 @@ def init_front():
     gamer.random_delay()
     gamer.delay(3)
 
-    #选择第三个职业和干员
+    # 选择第三个职业和干员
+    logging.info('选择第三个职业和干员')
     gamer.touch(rd.shushi)
     gamer.random_delay()
-    #gamer.slide(((2324, 528),(186, 484)))
     gamer.touch(rd.yanrong)
     gamer.random_delay()
     gamer.touch(rd.querenganyuan)
     gamer.random_delay()
     gamer.delay(3)
     gamer.touch(rd.skip)
-    
+
 
 # 与虫为伴关卡所需时间，单位为秒
 fight_yu_chong_wei_ban_duration = 80
 
+
 # 与虫为伴打法 在此定义 请参考这个方法内的注释来编写
 def fight_yu_chong_wei_ban():
-    for i in range(4): # 循环做4次，以防中途有干员被打死然后就不部署了
+    logging.info('- 与虫为伴 -')
+    statistic['战斗'].append('与虫为伴')
+    for i in range(4):  # 循环做4次，以防中途有干员被打死然后就不部署了
         # 刚进游戏画面时的延时，这里不需要设置太高，因为此时已经是二倍速状态，如果一开始使用的干员费用较高可以适当增大此值
         gamer.delay(3.5)
 
@@ -102,10 +120,13 @@ def fight_yu_chong_wei_ban():
 # 驯兽小屋关卡所需时间，单位为秒
 fight_xun_shou_xiao_wu_duration = 80
 
+
 # 驯兽小屋打法 在此定义 参考 与虫为伴的注释
 def fight_xun_shou_xiao_wu():
+    logging.info('- 驯兽小屋 -')
+    statistic['战斗'].append('驯兽小屋')
     for i in range(4):
-        gamer.delay(3.5)
+        gamer.delay(3)
 
         fight_agent_arrange(rd.fight_icon_gumi, rd.xunshouxiaowu_gumi, Direction.RIGHT)
         gamer.delay(5)
@@ -116,28 +137,36 @@ def fight_xun_shou_xiao_wu():
         fight_agent_arrange(rd.fight_icon_yanrong, rd.xunshouxiaowu_yanrong, Direction.LEFT)
         gamer.delay(10)
 
+
 # 礼炮小队关卡所需时间，单位为秒
 fight_li_pao_xiao_dui_duration = 80
 
+
 # 礼炮小队打法 在此定义 参考 与虫为伴的注释
 def fight_li_pao_xiao_dui():
+    logging.info('- 礼炮小队 -')
+    statistic['战斗'].append('礼炮小队')
     for i in range(4):
-        gamer.delay(3.5)
+        gamer.delay(3)
 
         fight_agent_arrange(rd.fight_icon_gumi, rd.lipaoxiaodui_gumi, Direction.RIGHT)
-        gamer.delay(5)
+        gamer.delay(2)
 
         fight_agent_arrange(rd.fight_icon_landu, rd.lipaoxiaodui_landu, Direction.RIGHT)
-        gamer.delay(8)
+        gamer.delay(5)
 
         fight_agent_arrange(rd.fight_icon_yanrong, rd.lipaoxiaodui_yanrong, Direction.RIGHT)
         gamer.delay(10)
 
+
 # 意外关卡所需时间，单位为秒
 fight_yi_wai_duration = 80
 
+
 # 意外打法 在此定义 参考 与虫为伴的注释
 def fight_yi_wai():
+    logging.info('- 意外 -')
+    statistic['战斗'].append('意外')
     for i in range(4):
         gamer.delay(3.5)
 
@@ -160,10 +189,11 @@ gamer.deviceType = 1
 # 全局标志位 勿改动
 isFightLose = False
 
-#屏幕分辨率 勿改动 请与此保持对齐
+# 屏幕分辨率 勿改动 请与此保持对齐
 screen_size = (2340, 1080)
 
-#战斗界面干员部署通用方法 三个参数分别是 干员 站位 朝向(0-3分别代表上下左右)
+
+# 战斗界面干员部署通用方法 三个参数分别是 干员 站位 朝向(0-3分别代表上下左右)
 def fight_agent_arrange(agent, pos, direction):
     screen_w, screen_h = screen_size
     x, y = pos
@@ -200,6 +230,7 @@ def fight_agent_arrange(agent, pos, direction):
 
     return False
 
+
 # 跳过结算画面
 def skip_ending():
     gamer.random_delay()
@@ -213,10 +244,12 @@ def skip_ending():
     gamer.random_delay()
     gamer.touch(rd.bottom)
 
+
 # 战斗后处理
 def process_after_fight():
-    for i in range(5): # 避免某些关卡有特殊怪，打得比较慢，重试五次检查结果状态，每次间隔10s
+    for i in range(5):  # 避免某些关卡有特殊怪，打得比较慢，重试五次检查结果状态，每次间隔10s
         if gamer.find_pic_touch(rd.success_pass):
+            logging.info('战斗成功')
             gamer.random_delay()
             gamer.find_pic_touch(rd.nazou)
             gamer.delay(1)
@@ -229,6 +262,7 @@ def process_after_fight():
                 return False
         # 失败的情况考虑一下
         elif gamer.find_pic_touch(rd.signal_lost):
+            logging.critical('战斗失败')
             gamer.random_delay()
             gamer.delay(5)
             skip_ending()
@@ -239,14 +273,16 @@ def process_after_fight():
                 return False
         gamer.delay(10)
 
+
 # 战斗前处理
 def process_before_fight():
     gamer.random_delay()
     gamer.find_pic_touch(rd.enter)
     gamer.random_delay()
     gamer.find_pic_touch(rd.kaishixingdong)
-    gamer.delay(9) # 从点击开始行动按钮以后到进入游戏的延时9秒
-    gamer.find_pic_touch(rd.speed_1x) # 二倍速
+    gamer.delay(9)  # 从点击开始行动按钮以后到进入游戏的延时9秒
+    gamer.find_pic_touch(rd.speed_1x)  # 二倍速
+
 
 # 普通战斗关卡
 def fight():
@@ -282,12 +318,15 @@ def fight():
     process_after_fight()
     return True
 
+
 # 不期而遇节点处理
 def buqieryu():
+    logging.info('- 不期而遇 -')
+    statistic['不期而遇'] += 1
     if gamer.find_pic_touch(rd.buqieryu):
         gamer.random_delay()
         gamer.find_pic_touch(rd.enter_buqieryu)
-        gamer.delay(8) #等待展示文本时间
+        gamer.delay(8)  # 等待展示文本时间
         gamer.random_delay()
 
         for i in range(2):
@@ -308,7 +347,7 @@ def buqieryu():
                 gamer.find_pic_touch(rd.choose_confirm)
                 break
             else:
-                #下滑一点然后重试一次，防止展示不完全
+                # 下滑一点然后重试一次，防止展示不完全
                 gamer.slide(rd.right_slide_down)
         gamer.delay(3)
         gamer.touch(rd.bottom)
@@ -317,29 +356,44 @@ def buqieryu():
     else:
         return False
 
+
 # 诡异行商节点处理(刷投资)
 def guiyixingshang():
+    logging.info('- 诡异行商 -')
     if gamer.find_pic_touch(rd.guiyixingshang):
+        logging.info('进入商店')
+        statistic['诡异行商'] += 1
         gamer.random_delay()
         gamer.find_pic_touch(rd.enter_guiyixingshang)
         gamer.delay(3)
         gamer.random_delay()
         if gamer.find_pic_touch(rd.touzi_enter):
-            gamer.find_pic_touch(rd.touzirukou)
-            gamer.random_delay()
-            pos = gamer.find_pic(rd.touzi_confirm, True)
-            for i in range(0,20): #点20次 投资确认
-                gamer.touch(pos)
-                gamer.delay(0.5)
-            gamer.find_pic_touch(rd.suanle)
-            gamer.random_delay()
-            gamer.find_pic_touch(rd.suanle2)
-            gamer.random_delay()
-            pos = gamer.find_pic(rd.exit_shop)
-            gamer.touch(pos)
-            gamer.random_delay()
-            gamer.touch(pos)
+            logging.info('投资系统出现')
+            if gamer.find_pic_touch(rd.touzirukou):
+                gamer.random_delay()
+
+                try:
+                    pos = gamer.find_pic(rd.touzi_confirm, True)
+                    for i in range(0, 20):  # 点20次 投资确认
+                        gamer.touch(pos)
+                        gamer.delay(0.3)
+                    gamer.find_pic_touch(rd.suanle)
+                    gamer.random_delay()
+                    logging.info('成功进行投资')
+                    statistic['投资系统'] += 1
+                except:
+                    logging.error('投资失败', exc_info=True, stack_info=True)
+                    pass
+
+                gamer.find_pic_touch(rd.suanle2)
+                gamer.random_delay()
+                gamer.find_pic_touch(rd.exit_shop)
+                gamer.random_delay()
+                gamer.find_pic_touch(rd.exit_shop)
+
+
         else:
+            logging.warning('投资系统未出现')
             pos = gamer.find_pic(rd.exit_shop)
             gamer.touch(pos)
             gamer.random_delay()
@@ -348,12 +402,15 @@ def guiyixingshang():
     else:
         return False
 
+
 # 幕间余兴 这里直接选退出选项
 def mujianyuxing():
+    logging.info('- 幕间余兴 -')
+    statistic['幕间余兴'] += 1
     if gamer.find_pic_touch(rd.mujianyuxing):
         gamer.random_delay()
         gamer.find_pic_touch(rd.enter_buqieryu)
-        gamer.delay(8) #等待展示文本时间
+        gamer.delay(8)  # 等待展示文本时间
         gamer.random_delay()
         for i in range(2):
             if gamer.find_pic_touch(rd.taopao):
@@ -361,7 +418,7 @@ def mujianyuxing():
                 gamer.find_pic_touch(rd.choose_confirm)
                 break
             else:
-                #下滑一点然后重试一次，防止展示不完全
+                # 下滑一点然后重试一次，防止展示不完全
                 gamer.slide(rd.right_slide_down)
         gamer.delay(3)
         gamer.touch(rd.bottom)
@@ -370,8 +427,10 @@ def mujianyuxing():
     else:
         return False
 
+
 # 退出到主界面并放弃当前进度，重开
 def exit_game():
+    logging.info('退出到主界面并放弃当前进度，重开')
     gamer.find_pic_touch(rd.exit_all)
     gamer.delay(2)
     gamer.random_delay()
@@ -380,13 +439,15 @@ def exit_game():
     gamer.find_pic_touch(rd.giveup_confirm)
     skip_ending()
 
+
 # 干员编队部分，这里只要分辨率不变，操作是固定的
 def gan_yuan_bian_dui():
-    gamer.touch((2076,1026))
+    logging.info('配置干员编队')
+    gamer.touch((2076, 1026))
     gamer.random_delay()
     gamer.touch((1846, 60))
     gamer.random_delay()
-    gamer.touch((987,242))
+    gamer.touch((987, 242))
     gamer.random_delay()
     gamer.touch((987, 446))
     gamer.random_delay()
@@ -397,56 +458,71 @@ def gan_yuan_bian_dui():
     gamer.touch((195, 52))
 
 
-
 # 脚本从这里开始运行
 gamer.deviceType = 1
 
-while True:
-    if gamer.find_pic_touch(rd.rg_start):
-        gamer.random_delay()
-        init_front()
-        gamer.random_delay()
-        if gamer.find_pic_touch(rd.enter_game):
-            gamer.delay(5)
-            gan_yuan_bian_dui()
+logging.info('脚本开始运行')
 
-            # 第一层只有四关，且第一关只能是战斗节点
-            # 1
-            fight()
-
-            # TODO:可以考虑更智能的寻路算法，当前只支持按照固定优先级
-            # 2
+try:
+    while True:
+        if gamer.find_pic_touch(rd.rg_start):
+            logging.info('开始一局')
+            game_count += 1
+            statistic = statistic_template
             gamer.random_delay()
-            if buqieryu() is False:
-                if fight() is False:
-                    if mujianyuxing() is False:
-                        exit_game()
-                        continue
-            if isFightLose:
-                continue
-
-            # 中场滑屏到后面，避免重复识别
-            gamer.slide(rd.bottom_slide_left)
-
-            # 3
+            init_front()
             gamer.random_delay()
-            if buqieryu() is False:
-                if fight() is False:
-                    if mujianyuxing() is False:
-                        exit_game()
-                        continue
+            if gamer.find_pic_touch(rd.enter_game):
+                gamer.delay(5)
+                gan_yuan_bian_dui()
 
-            if isFightLose:
-                continue
+                # 第一层只有四关，且第一关只能是战斗节点
+                # 1
+                fight()
 
-            # 第四关只能是诡异行商
-            # 4
-            guiyixingshang()
-            gamer.delay(5)
-            gamer.random_delay()
-            exit_game()
-    else:
-        with open('log',encoding='utf-8',mode='w') as f:
-            f.write(time.strftime('%Y-%m-%d %H:%M:%S'))
-        break
+                # TODO:可以考虑更智能的寻路算法，当前只支持按照固定优先级
+                # 2
+                gamer.random_delay()
+                if buqieryu() is False:
+                    if fight() is False:
+                        if mujianyuxing() is False:
+                            exit_game()
+                            continue
+                if isFightLose:
+                    continue
 
+                # 中场滑屏到后面，避免重复识别
+                gamer.slide(rd.bottom_slide_left)
+
+                # 3
+                gamer.random_delay()
+                if buqieryu() is False:
+                    if fight() is False:
+                        if mujianyuxing() is False:
+                            exit_game()
+                            continue
+
+                if isFightLose:
+                    continue
+
+                # 第四关只能是诡异行商
+                # 4
+                guiyixingshang()
+                gamer.delay(3)
+                gamer.random_delay()
+                exit_game()
+                statistic_conclusion.append(statistic)
+        else:
+            logging.warning('无开始按钮')
+            # winsound.Beep(4000, 5000)
+            break
+except:
+    logging.critical('错误，停止运行', exc_info=True, stack_info=True)
+finally:
+    logging.info(f'本次运行开始游戏{game_count}次')
+    #for s, i in statistic_conclusion, range(len(statistic_conclusion)):
+        #logging.info(
+        #    f"第{i + 1:02d}次游戏，进入战斗{s['战斗']}，共{len(s['战斗'])}次；不期而遇{s['不期而遇']}次；幕间余兴{s['幕间余兴']}次；诡异行商{s['诡异行商']}次，成功进行投资{s['投资系统']}次\n")
+    for s in statistic_conclusion:
+        logging.info(
+           f" - 进入战斗{' '.join(s['战斗'])}，共{len(s['战斗'])}次；不期而遇{s['不期而遇']}次；幕间余兴{s['幕间余兴']}次；诡异行商{s['诡异行商']}次，成功进行投资{s['投资系统']}次\n")
