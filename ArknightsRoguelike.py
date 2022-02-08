@@ -4,12 +4,13 @@
 import logging
 import multiprocessing
 from enum import Enum
+import time
 
 import RaphaelScriptHelper as gamer
 import ResourceDictionary as rd
 import settings
 
-logging.basicConfig(level=logging.INFO, filename='rg.log', format='%(asctime)s [%(levelname)s] %(message)s',
+logging.basicConfig(level=logging.INFO, filename='rg'+time.strftime('_%Y%m%dT%H%M%S')+'.log', format='%(asctime)s [%(levelname)s] %(message)s',
                     datefmt='%Y/%m/%d %H:%M:%S')
 
 
@@ -376,17 +377,16 @@ def guiyixingshang():
 
                 gamer.find_pic_touch(rd.suanle2)
                 gamer.random_delay()
-                pos = gamer.find_pic(rd.exit_shop)
-                gamer.touch(pos)
-                gamer.random_delay()
-                gamer.touch(pos)
+                #pos = gamer.find_pic(rd.exit_shop)
+                #gamer.touch(pos)
+                #gamer.random_delay()
+                #gamer.touch(pos)
 
         else:
             logging.warning('投资系统未出现')
-            pos = gamer.find_pic(rd.exit_shop)
-            gamer.touch(pos)
-            gamer.random_delay()
-            gamer.touch(pos)
+            #gamer.find_pic_touch(rd.exit_shop)
+            #gamer.random_delay()
+            #gamer.find_pic_touch(rd.exit_shop)
         return True
     else:
         return False
