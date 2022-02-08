@@ -1,4 +1,4 @@
-import logging
+import log
 import random
 import time
 
@@ -15,12 +15,12 @@ deviceID = ""
 
 def random_delay():
     t = random.uniform(st.randomDelayMin, st.randomDelayMax)
-    logging.debug("【随机延时】将随机延时 {0} 秒".format(t))
+    log.debug("【随机延时】将随机延时 {0} 秒".format(t))
     time.sleep(t)
 
 
 def delay(t):
-    logging.debug("【主动延时】延时 {0} 秒".format(t))
+    log.debug("【主动延时】延时 {0} 秒".format(t))
     time.sleep(t)
 
 
@@ -45,7 +45,7 @@ def random_pos(pos):
 def touch(pos):
     randTime = random.randint(10, st.touchDelayRange)
     _pos = random_pos(pos)
-    logging.debug("【模拟点击】点击坐标 {0} {1} 毫秒".format(_pos, randTime))
+    log.debug("【模拟点击】点击坐标 {0} {1} 毫秒".format(_pos, randTime))
     if randTime < 10:
         ADBHelper.touch(deviceID, _pos)
     else:
@@ -58,7 +58,7 @@ def slide(vector):
     _startPos = random_pos(startPos)
     _stopPos = random_pos(stopPos)
     randTime = random.randint(st.slideMinVer, st.slideMaxVer)
-    logging.debug("【模拟滑屏】使用 {0} 毫秒从坐标 {1} 滑动到坐标 {2}".format(randTime, _startPos, _stopPos))
+    log.debug("【模拟滑屏】使用 {0} 毫秒从坐标 {1} 滑动到坐标 {2}".format(randTime, _startPos, _stopPos))
     ADBHelper.slide(deviceID, _startPos, _stopPos, randTime)
 
 
@@ -88,9 +88,9 @@ def find_pic_all(target,accuracy = st.accuracy):
 def find_pic_touch(target, accuracy = st.accuracy):
     leftTopPos = find_pic(target, accuracy)
     if leftTopPos is None:
-        logging.warning("【识图】识别 {0} 失败".format(target))
+        log.warning("【识图】识别 {0} 失败".format(target))
         return False
-    logging.debug("【识图】识别 {0} 成功，图块左上角坐标 {1}".format(target, leftTopPos))
+    log.debug("【识图】识别 {0} 成功，图块左上角坐标 {1}".format(target, leftTopPos))
     img = cv2.imread(target)
     tlx, tly = leftTopPos
     h_src, w_src, tongdao = img.shape
@@ -104,9 +104,9 @@ def find_pic_touch(target, accuracy = st.accuracy):
 def find_pic_slide(target, pos, accuracy = st.accuracy):
     leftTopPos = find_pic(target, accuracy)
     if leftTopPos is None:
-        logging.warning("【识图】识别 {0} 失败".format(target))
+        log.warning("【识图】识别 {0} 失败".format(target))
         return False
-    logging.debug("【识图】识别 {0} 成功，图块左上角坐标 {1}".format(target, leftTopPos))
+    log.debug("【识图】识别 {0} 成功，图块左上角坐标 {1}".format(target, leftTopPos))
     img = cv2.imread(target)
     centerPos = ImageProc.centerOfTouchArea(img.shape, leftTopPos)
     slide((centerPos, pos))

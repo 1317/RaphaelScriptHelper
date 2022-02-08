@@ -1,7 +1,7 @@
 # 请参考视频教程 https://www.bilibili.com/video/BV1u3411E7KD/ 改写此脚本后再运行
 # 请注意视频教程或文字教程中的相关注意事项
 
-import logging
+import log
 import multiprocessing
 import time
 from enum import Enum
@@ -10,9 +10,7 @@ import RaphaelScriptHelper as gamer
 import ResourceDictionary as rd
 import settings
 
-LOG_FILENAME = r'./log/rg' + time.strftime('_%Y%m%d') + '.log'
-logging.basicConfig(level=logging.INFO, filename=LOG_FILENAME, format='%(asctime)s [%(levelname)s] %(message)s',
-                    datefmt='%Y/%m/%d %H:%M:%S')
+
 
 
 class Direction(Enum):
@@ -34,21 +32,21 @@ def init_front():
     gamer.touch(((1236, 980)))  # 静音小队
     gamer.random_delay()
     # 选择分队
-    logging.info('选择分队')
+    log.info('选择分队')
     gamer.touch(rd.zhihuifendui)
     gamer.random_delay()
     gamer.touch(rd.zhihuifendui)
     gamer.random_delay()
 
     # 选择招募组合
-    logging.info('选择招募组合')
+    log.info('选择招募组合')
     gamer.touch(rd.wenzhawenda)
     gamer.random_delay()
     gamer.touch(rd.wenzhawenda)
     gamer.random_delay()
 
     # 选择第一个职业和干员
-    logging.info('选择第一个职业和干员')
+    log.info('选择第一个职业和干员')
     gamer.touch(rd.zhongzhuang)
     gamer.random_delay()
     gamer.touch(rd.gumi)  # 古米
@@ -64,7 +62,7 @@ def init_front():
     gamer.delay(3)
 
     # 选择第二个职业和干员
-    logging.info('选择第二个职业和干员')
+    log.info('选择第二个职业和干员')
     gamer.touch(rd.juji)
     gamer.random_delay()
     gamer.touch(rd.landu)
@@ -80,7 +78,7 @@ def init_front():
     gamer.delay(3)
 
     # 选择第三个职业和干员
-    logging.info('选择第三个职业和干员')
+    log.info('选择第三个职业和干员')
     gamer.touch(rd.shushi)
     gamer.random_delay()
     gamer.touch(rd.yanrong)
@@ -97,7 +95,7 @@ fight_yu_chong_wei_ban_duration = 80
 
 # 与虫为伴打法 在此定义 请参考这个方法内的注释来编写
 def fight_yu_chong_wei_ban():
-    logging.info('- 与虫为伴 -')
+    log.info('- 与虫为伴 -')
     for i in range(4):  # 循环做4次，以防中途有干员被打死然后就不部署了
         # 刚进游戏画面时的延时，这里不需要设置太高，因为此时已经是二倍速状态，如果一开始使用的干员费用较高可以适当增大此值
         gamer.delay(3.5)
@@ -120,7 +118,7 @@ fight_xun_shou_xiao_wu_duration = 80
 
 # 驯兽小屋打法 在此定义 参考 与虫为伴的注释
 def fight_xun_shou_xiao_wu():
-    logging.info('- 驯兽小屋 -')
+    log.info('- 驯兽小屋 -')
     for i in range(4):
         gamer.delay(3)
 
@@ -140,7 +138,7 @@ fight_li_pao_xiao_dui_duration = 80
 
 # 礼炮小队打法 在此定义 参考 与虫为伴的注释
 def fight_li_pao_xiao_dui():
-    logging.info('- 礼炮小队 -')
+    log.info('- 礼炮小队 -')
     for i in range(4):
         gamer.delay(3)
 
@@ -160,7 +158,7 @@ fight_yi_wai_duration = 80
 
 # 意外打法 在此定义 参考 与虫为伴的注释
 def fight_yi_wai():
-    logging.info('- 意外 -')
+    log.info('- 意外 -')
     for i in range(4):
         gamer.delay(3.5)
 
@@ -243,7 +241,7 @@ def skip_ending():
 def process_after_fight():
     for i in range(5):  # 避免某些关卡有特殊怪，打得比较慢，重试五次检查结果状态，每次间隔10s
         if gamer.find_pic_touch(rd.success_pass):
-            logging.info('战斗成功')
+            log.info('战斗成功')
             gamer.random_delay()
             gamer.find_pic_touch(rd.nazou)
             gamer.delay(1)
@@ -256,7 +254,7 @@ def process_after_fight():
                 return False
         # 失败的情况考虑一下
         elif gamer.find_pic_touch(rd.signal_lost):
-            logging.critical('战斗失败')
+            log.critical('战斗失败')
             gamer.random_delay()
             gamer.delay(5)
             skip_ending()
@@ -315,7 +313,7 @@ def fight():
 
 # 不期而遇节点处理
 def buqieryu():
-    logging.info('- 不期而遇 -')
+    log.info('- 不期而遇 -')
     if gamer.find_pic_touch(rd.buqieryu):
         gamer.random_delay()
         gamer.find_pic_touch(rd.enter_buqieryu)
@@ -352,15 +350,15 @@ def buqieryu():
 
 # 诡异行商节点处理(刷投资)
 def guiyixingshang():
-    logging.info('- 诡异行商 -')
+    log.info('- 诡异行商 -')
     if gamer.find_pic_touch(rd.guiyixingshang,accuracy=0.5):
-        logging.info('进入商店')
+        log.info('进入商店')
         gamer.random_delay()
         gamer.find_pic_touch(rd.enter_guiyixingshang)
         gamer.delay(3)
         gamer.random_delay()
         if gamer.find_pic_touch(rd.touzi_enter):
-            logging.info('投资系统出现')
+            log.info('投资系统出现')
             if gamer.find_pic_touch(rd.touzirukou):
                 gamer.random_delay()
 
@@ -371,9 +369,9 @@ def guiyixingshang():
                         gamer.delay(0.5)
                     gamer.find_pic_touch(rd.suanle)
                     gamer.random_delay()
-                    logging.info('投资成功')
+                    log.info('投资成功')
                 except:
-                    logging.error('投资失败', exc_info=True, stack_info=True)
+                    log.error('投资失败', exc_info=True, stack_info=True)
                     pass
 
                 gamer.find_pic_touch(rd.suanle2)
@@ -384,19 +382,19 @@ def guiyixingshang():
                 # gamer.touch(pos)
 
         else:
-            logging.warning('投资系统未出现')
+            log.warning('投资系统未出现')
             # gamer.find_pic_touch(rd.exit_shop)
             # gamer.random_delay()
             # gamer.find_pic_touch(rd.exit_shop)
         return True
     else:
-        logging.error('未进入诡异行商')
+        log.error('未进入诡异行商')
         return False
 
 
 # 幕间余兴 这里直接选退出选项
 def mujianyuxing():
-    logging.info('- 幕间余兴 -')
+    log.info('- 幕间余兴 -')
     if gamer.find_pic_touch(rd.mujianyuxing):
         gamer.random_delay()
         gamer.find_pic_touch(rd.enter_buqieryu)
@@ -420,7 +418,7 @@ def mujianyuxing():
 
 # 退出到主界面并放弃当前进度，重开
 def exit_game():
-    logging.info('退出到主界面并放弃当前进度，重开')
+    log.info('退出到主界面并放弃当前进度，重开')
     gamer.find_pic_touch(rd.exit_all)
     gamer.delay(2)
     gamer.random_delay()
@@ -432,7 +430,7 @@ def exit_game():
 
 # 干员编队部分，这里只要分辨率不变，操作是固定的
 def gan_yuan_bian_dui():
-    logging.info('配置干员编队')
+    log.info('配置干员编队')
     gamer.touch((2076, 1026))
     gamer.random_delay()
     gamer.touch((1846, 60))
@@ -451,9 +449,12 @@ def gan_yuan_bian_dui():
 # 脚本从这里开始运行
 gamer.deviceType = 1
 
+log.info('-'*30)
+log.info('脚本开始运行')
+
 while True:
     if gamer.find_pic_touch(rd.rg_start):
-        logging.info('开始一局')
+        log.info('开始一局')
         gamer.random_delay()
         init_front()
         gamer.random_delay()
@@ -498,5 +499,5 @@ while True:
             gamer.random_delay()
             exit_game()
     else:
-        logging.warning('无开始按钮')
+        log.warning('无开始按钮')
         break
