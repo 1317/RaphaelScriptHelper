@@ -7,8 +7,9 @@ import random
 import settings as st
 import time
 
-logging.basicConfig(level=logging.DEBUG, filename='rg.log', format='%(asctime)s [%(levelname)s] %(message)s',
+logging.basicConfig(level=logging.INFO, filename='rg'+time.strftime('_%Y%m%dT%H%M%S')+'.log', format='%(asctime)s [%(levelname)s] %(message)s',
                     datefmt='%Y/%m/%d %H:%M:%S')
+
 
 deviceType = 1
 deviceID = ""
