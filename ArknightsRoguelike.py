@@ -3,14 +3,15 @@
 
 import logging
 import multiprocessing
-from enum import Enum
 import time
+from enum import Enum
 
 import RaphaelScriptHelper as gamer
 import ResourceDictionary as rd
 import settings
 
-logging.basicConfig(level=logging.INFO, filename='rg'+time.strftime('_%Y%m%dT%H%M%S')+'.log', format='%(asctime)s [%(levelname)s] %(message)s',
+LOG_FILENAME = r'./log/rg' + time.strftime('_%Y%m%d') + '.log'
+logging.basicConfig(level=logging.INFO, filename=LOG_FILENAME, format='%(asctime)s [%(levelname)s] %(message)s',
                     datefmt='%Y/%m/%d %H:%M:%S')
 
 
@@ -365,7 +366,7 @@ def guiyixingshang():
 
                 try:
                     pos = gamer.find_pic(rd.touzi_confirm, True)
-                    for i in range(0, 20):  # 点20次 投资确认
+                    for i in range(0, 15):  # 点15次 投资确认
                         gamer.touch(pos)
                         gamer.delay(0.5)
                     gamer.find_pic_touch(rd.suanle)
@@ -377,16 +378,16 @@ def guiyixingshang():
 
                 gamer.find_pic_touch(rd.suanle2)
                 gamer.random_delay()
-                #pos = gamer.find_pic(rd.exit_shop)
-                #gamer.touch(pos)
-                #gamer.random_delay()
-                #gamer.touch(pos)
+                # pos = gamer.find_pic(rd.exit_shop)
+                # gamer.touch(pos)
+                # gamer.random_delay()
+                # gamer.touch(pos)
 
         else:
             logging.warning('投资系统未出现')
-            #gamer.find_pic_touch(rd.exit_shop)
-            #gamer.random_delay()
-            #gamer.find_pic_touch(rd.exit_shop)
+            # gamer.find_pic_touch(rd.exit_shop)
+            # gamer.random_delay()
+            # gamer.find_pic_touch(rd.exit_shop)
         return True
     else:
         return False

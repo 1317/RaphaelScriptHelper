@@ -1,14 +1,12 @@
 import logging
+import random
+import time
+
+import cv2
 
 import ADBHelper
 import ImageProc
-import cv2
-import random
 import settings as st
-import time
-
-logging.basicConfig(level=logging.INFO, filename='rg'+time.strftime('_%Y%m%dT%H%M%S')+'.log', format='%(asctime)s [%(levelname)s] %(message)s',
-                    datefmt='%Y/%m/%d %H:%M:%S')
 
 
 deviceType = 1
