@@ -495,5 +495,5 @@ while True:
             gamer.random_delay()
             exit_game()
     else:
-        logging.critical('错误', exc_info=True, stack_info=True)
+        logging.warning('无开始按钮', exc_info=True, stack_info=True)
         break
