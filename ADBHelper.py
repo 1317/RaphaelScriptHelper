@@ -1,4 +1,4 @@
-import os, time
+import os, time, subprocess
 
 # 获取设备列表，每一个为deviceID
 def getDevicesList():
@@ -22,7 +22,7 @@ def screenCapture(deviceID, capPath):
     b = "adb pull sdcard/adb_screenCap.png " + capPath
     for row in [a, b]:
         time.sleep(0.1)
-        os.system(row)
+        subprocess.run(row, shell=True, capture_output=False)
     if os.path.exists(capPath) == True:
         return True
     else:
