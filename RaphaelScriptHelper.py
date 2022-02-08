@@ -1,21 +1,29 @@
-import ImageProc, ADBHelper, random, time, cv2
-import settings as st
 import logging
 
-logging.basicConfig(level=logging.DEBUG, filename='rg.log', format = '%(asctime)s [%(levelname)s] %(message)s', datefmt = '%Y/%m/%d %H:%M:%S')
+import ADBHelper
+import ImageProc
+import cv2
+import random
+import settings as st
+import time
 
+logging.basicConfig(level=logging.DEBUG, filename='rg.log', format='%(asctime)s [%(levelname)s] %(message)s',
+                    datefmt='%Y/%m/%d %H:%M:%S')
 
 deviceType = 1
 deviceID = ""
+
 
 def random_delay():
     t = random.uniform(st.randomDelayMin, st.randomDelayMax)
     logging.debug("【随机延时】将随机延时 {0} 秒".format(t))
     time.sleep(t)
 
+
 def delay(t):
     logging.debug("【主动延时】延时 {0} 秒".format(t))
     time.sleep(t)
+
 
 def random_pos(pos):
     x, y = pos
@@ -33,6 +41,7 @@ def random_pos(pos):
 
     return (x, y)
 
+
 # 智能模拟点击某个点，将会随机点击以这个点为中心一定范围内的某个点，并随机按下时长
 def touch(pos):
     randTime = random.randint(10, st.touchDelayRange)
@@ -43,6 +52,7 @@ def touch(pos):
     else:
         ADBHelper.longTouch(deviceID, _pos, randTime)
 
+
 # 智能模拟滑屏，给定起始点和终点的二元组，模拟一次随机智能滑屏
 def slide(vector):
     startPos, stopPos = vector
@@ -52,8 +62,9 @@ def slide(vector):
     logging.debug("【模拟滑屏】使用 {0} 毫秒从坐标 {1} 滑动到坐标 {2}".format(randTime, _startPos, _stopPos))
     ADBHelper.slide(deviceID, _startPos, _stopPos, randTime)
 
+
 # 截屏，识图，返回坐标
-def find_pic(target, returnCenter = False):
+def find_pic(target, returnCenter=False):
     ADBHelper.screenCapture(deviceID, st.cache_path + "screenCap.png")
     time.sleep(0.1)
     if returnCenter == True:
@@ -65,12 +76,14 @@ def find_pic(target, returnCenter = False):
         leftTopPos = ImageProc.locate(st.cache_path + "screenCap.png", target, st.accuracy)
         return leftTopPos
 
+
 # 截屏，识图，返回所有坐标
 def find_pic_all(target):
     ADBHelper.screenCapture(deviceID, st.cache_path + "screenCap.png")
     time.sleep(0.1)
     leftTopPos = ImageProc.locate_all(st.cache_path + "screenCap.png", target, st.accuracy)
     return leftTopPos
+
 
 # 寻找目标区块并在其范围内随机点击
 def find_pic_touch(target):
@@ -87,14 +100,15 @@ def find_pic_touch(target):
     touch((x, y))
     return True
 
+
 # 寻找目标区块并将其拖动到某个位置
-def find_pic_slide(target,pos):
+def find_pic_slide(target, pos):
     leftTopPos = find_pic(target)
     if leftTopPos is None:
         logging.warning("【识图】识别 {0} 失败".format(target))
         return False
     logging.debug("【识图】识别 {0} 成功，图块左上角坐标 {1}".format(target, leftTopPos))
     img = cv2.imread(target)
-    centerPos = ImageProc.centerOfTouchArea(img.shape,leftTopPos)
+    centerPos = ImageProc.centerOfTouchArea(img.shape, leftTopPos)
     slide((centerPos, pos))
     return True

@@ -2,15 +2,14 @@ start = "./img/start.png"
 start1 = "./img/start1.png"
 finish = "./img/finish.png"
 
-
-#指挥分队按钮，点两次，第二次是确认
+# 指挥分队按钮，点两次，第二次是确认
 zhihuifendui = (352, 896)
 
-#稳扎稳打选项，点两次，第二次是确认
+# 稳扎稳打选项，点两次，第二次是确认
 wenzhawenda = (1022, 892)
 
 zhongzhuang = (806, 814)
-linguang = (1587,644)
+linguang = (1587, 644)
 gumi = (2130, 830)
 
 juji = (1662, 822)
@@ -19,13 +18,13 @@ landu = (1538, 218)
 shushi = (1234, 812)
 yanrong = (948, 432)
 
-#选完人以后跳过
-skip = (2290,85)
-#选完干员以后确认
-querenganyuan = (2092,1024)
+# 选完人以后跳过
+skip = (2290, 85)
+# 选完干员以后确认
+querenganyuan = (2092, 1024)
 
 speed_1x = "./img/1x_speed.png"
-bottom = (1169,920)
+bottom = (1169, 920)
 
 # 干员图标
 fight_icon_linguang = "./img/linguang.png"
@@ -37,7 +36,6 @@ fight_icon_yanrong = "./img/yanrong.png"
 yuchongweiban_gumi = (1176, 558)
 yuchongweiban_landu = (1294, 534)
 yuchongweiban_yanrong = (1062, 664)
-
 
 kaishixingdong = "./img/kaishixingdong.png"
 success_pass = "./img/success_pass.png"
