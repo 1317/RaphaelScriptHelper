@@ -63,30 +63,30 @@ def slide(vector):
 
 
 # 截屏，识图，返回坐标
-def find_pic(target, returnCenter=False):
+def find_pic(target, returnCenter=False,accuracy = st.accuracy):
     ADBHelper.screenCapture(deviceID, st.cache_path + "screenCap.png")
     time.sleep(0.1)
     if returnCenter == True:
-        leftTopPos = ImageProc.locate(st.cache_path + "screenCap.png", target, st.accuracy)
+        leftTopPos = ImageProc.locate(st.cache_path + "screenCap.png", target, accuracy)
         img = cv2.imread(target)
         centerPos = ImageProc.centerOfTouchArea(img.shape, leftTopPos)
         return centerPos
     else:
-        leftTopPos = ImageProc.locate(st.cache_path + "screenCap.png", target, st.accuracy)
+        leftTopPos = ImageProc.locate(st.cache_path + "screenCap.png", target, accuracy)
         return leftTopPos
 
 
 # 截屏，识图，返回所有坐标
-def find_pic_all(target):
+def find_pic_all(target,accuracy = st.accuracy):
     ADBHelper.screenCapture(deviceID, st.cache_path + "screenCap.png")
     time.sleep(0.1)
-    leftTopPos = ImageProc.locate_all(st.cache_path + "screenCap.png", target, st.accuracy)
+    leftTopPos = ImageProc.locate_all(st.cache_path + "screenCap.png", target, accuracy)
     return leftTopPos
 
 
 # 寻找目标区块并在其范围内随机点击
-def find_pic_touch(target):
-    leftTopPos = find_pic(target)
+def find_pic_touch(target, accuracy = st.accuracy):
+    leftTopPos = find_pic(target, accuracy)
     if leftTopPos is None:
         logging.warning("【识图】识别 {0} 失败".format(target))
         return False
@@ -101,8 +101,8 @@ def find_pic_touch(target):
 
 
 # 寻找目标区块并将其拖动到某个位置
-def find_pic_slide(target, pos):
-    leftTopPos = find_pic(target)
+def find_pic_slide(target, pos, accuracy = st.accuracy):
+    leftTopPos = find_pic(target, accuracy)
     if leftTopPos is None:
         logging.warning("【识图】识别 {0} 失败".format(target))
         return False

@@ -353,7 +353,7 @@ def buqieryu():
 # 诡异行商节点处理(刷投资)
 def guiyixingshang():
     logging.info('- 诡异行商 -')
-    if gamer.find_pic_touch(rd.guiyixingshang):
+    if gamer.find_pic_touch(rd.guiyixingshang,accuracy=0.5):
         logging.info('进入商店')
         gamer.random_delay()
         gamer.find_pic_touch(rd.enter_guiyixingshang)
@@ -390,6 +390,7 @@ def guiyixingshang():
             # gamer.find_pic_touch(rd.exit_shop)
         return True
     else:
+        logging.error('未进入诡异行商')
         return False
 
 
@@ -491,6 +492,7 @@ while True:
 
             # 第四关只能是诡异行商
             # 4
+            gamer.delay(1)
             guiyixingshang()
             gamer.delay(5)
             gamer.random_delay()
