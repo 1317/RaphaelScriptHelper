@@ -1,16 +1,13 @@
 # 请参考视频教程 https://www.bilibili.com/video/BV1u3411E7KD/ 改写此脚本后再运行
 # 请注意视频教程或文字教程中的相关注意事项
 
-import log
 import multiprocessing
-import time
 from enum import Enum
 
 import RaphaelScriptHelper as gamer
 import ResourceDictionary as rd
+import log
 import settings
-
-
 
 
 class Direction(Enum):
@@ -351,10 +348,10 @@ def buqieryu():
 # 诡异行商节点处理(刷投资)
 def guiyixingshang():
     log.info('- 诡异行商 -')
-    if gamer.find_pic_touch(rd.guiyixingshang,accuracy=0.5):
+    if gamer.find_pic_touch(rd.guiyixingshang, accuracy=0.5):
         log.info('进入商店')
         gamer.random_delay()
-        gamer.find_pic_touch(rd.enter_guiyixingshang)
+        gamer.find_pic_touch(rd.enter_guiyixingshang, accuracy=0.75)
         gamer.delay(3)
         gamer.random_delay()
         if gamer.find_pic_touch(rd.touzi_enter):
@@ -449,7 +446,7 @@ def gan_yuan_bian_dui():
 # 脚本从这里开始运行
 gamer.deviceType = 1
 
-log.info('-'*30)
+log.info('-' * 30)
 log.info('脚本开始运行')
 
 while True:
