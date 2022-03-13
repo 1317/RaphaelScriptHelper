@@ -88,3 +88,6 @@ xunshouxiaowu_gumi = (1856, 522)
 xunshouxiaowu_landu = (1828, 374)
 xunshouxiaowu_yanrong = (1686, 390)
 geshsgwesh = "./img/geshsgwesh.png"
+start_QHD = "./img/start_QHD.png"
+start1_QHD = "./img/start1_QHD.png"
+finish_QHD = "./img/finish_QHD.png"

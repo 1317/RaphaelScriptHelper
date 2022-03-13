@@ -23,6 +23,8 @@ class Direction(Enum):
 # 安卓设备的DID
 gamer.deviceID = "cda135e9"
 
+#gamer.deviceID = "192.168.1.101:5555"
+
 
 # 从点击开始以后到进入正式游戏界面之前的前期准备部分
 def init_front():
