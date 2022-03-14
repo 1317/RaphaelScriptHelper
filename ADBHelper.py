@@ -12,9 +12,11 @@ def getDevicesList():
         res.append(d.split('\t')[0])
     return res
 
+
 # 杀死ADB进程
 def killADBServer():
     os.system("adb kill-server")
+
 
 # 设备屏幕截图，需给定did和本机截图保存路径
 def screenCapture(deviceID, capPath):
@@ -28,11 +30,13 @@ def screenCapture(deviceID, capPath):
     else:
         return False
 
+
 # 模拟点击屏幕，参数pos为目标坐标(x, y)
 def touch(deviceID, pos):
     x, y = pos
     a = "adb -s " + deviceID + " shell input touchscreen tap {0} {1}".format(x, y)
     os.system(a)
+
 
 # 模拟滑动屏幕，posStart为起始坐标(x, y)，posStop为终点坐标(x, y)，time为滑动时间
 def slide(deviceID, posStart, posStop, time):
@@ -40,6 +44,7 @@ def slide(deviceID, posStart, posStop, time):
     x2, y2 = posStop
     a = "adb -s " + deviceID + " shell input swipe {0} {1} {2} {3} {4}".format(x1, y1, x2, y2, time)
     os.system(a)
+
 
 # 模拟长按屏幕，参数pos为目标坐标(x, y)，time为长按时间
 def longTouch(deviceID, pos, time):
