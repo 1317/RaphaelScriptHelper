@@ -3,7 +3,7 @@
 import ADBHelper, RaphaelScriptHelper, ResourceDictionary
 
 deviceList = ADBHelper.getDevicesList()
-print(deviceList)
+#print(deviceList)
 '''i = 0
 for did in deviceList:
     print(str(i) + ": " + did)

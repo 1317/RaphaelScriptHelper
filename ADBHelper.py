@@ -19,12 +19,12 @@ def killADBServer():
 
 
 # 设备屏幕截图，需给定did和本机截图保存路径
-def screenCapture(deviceID, capPath):
+def screenCapture(deviceID, capPath, print_output = False):
     a = "adb -s " + deviceID + " shell screencap -p sdcard/adb_screenCap.png"
     b = "adb pull sdcard/adb_screenCap.png " + capPath
     for row in [a, b]:
         time.sleep(0.1)
-        subprocess.run(row, shell=True, capture_output=False)
+        subprocess.run(row, shell=True, capture_output= not print_output)
     if os.path.exists(capPath) == True:
         return True
     else:
