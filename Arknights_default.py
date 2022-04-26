@@ -26,9 +26,9 @@ class Operation(object):
         self.description = description
 
 
-operation_info = {'1-7': Operation('1-7', 85, '刷固源岩'), 'GA-8': Operation('GA-8', 160)}
+operation_info = {'1-7': Operation('1-7', 85, '刷固源岩'), 'GA-8': Operation('GA-8', 160), '3-2':Operation('3-2',118)}
 
-delayTime = operation_info['GA-8'].duration
+delayTime = operation_info['3-2'].duration
 retry_times = 3
 
 for i in range(0, 100):
@@ -45,8 +45,11 @@ for i in range(0, 100):
 
     j = 0
     while j < retry_times:
-        if RaphaelScriptHelper.find_pic_touch(ResourceDictionary.finish_QHD):
-            break
+        if RaphaelScriptHelper.find_pic_touch(ResourceDictionary.finish_new_QHD):
+            RaphaelScriptHelper.delay(1) # 防止熄屏
+            if RaphaelScriptHelper.find_pic_touch(ResourceDictionary.finish_new_QHD):
+                break
+
         j = j + 1
         RaphaelScriptHelper.delay(3)
 
