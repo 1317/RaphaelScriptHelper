@@ -1,4 +1,3 @@
-import log
 import random
 import time
 
@@ -6,8 +5,8 @@ import cv2
 
 import ADBHelper
 import ImageProc
+import log
 import settings as st
-
 
 deviceType = 1
 deviceID = ""
@@ -63,7 +62,7 @@ def slide(vector):
 
 
 # 截屏，识图，返回坐标
-def find_pic(target, returnCenter=False,accuracy = st.accuracy):
+def find_pic(target, returnCenter=False, accuracy=st.accuracy):
     ADBHelper.screenCapture(deviceID, st.cache_path + "screenCap.png")
     time.sleep(0.1)
     if returnCenter == True:
@@ -77,7 +76,7 @@ def find_pic(target, returnCenter=False,accuracy = st.accuracy):
 
 
 # 截屏，识图，返回所有坐标
-def find_pic_all(target,accuracy = st.accuracy):
+def find_pic_all(target, accuracy=st.accuracy):
     ADBHelper.screenCapture(deviceID, st.cache_path + "screenCap.png")
     time.sleep(0.1)
     leftTopPos = ImageProc.locate_all(st.cache_path + "screenCap.png", target, accuracy)
@@ -85,7 +84,7 @@ def find_pic_all(target,accuracy = st.accuracy):
 
 
 # 寻找目标区块并在其范围内随机点击
-def find_pic_touch(target, accuracy = st.accuracy):
+def find_pic_touch(target, accuracy=st.accuracy):
     leftTopPos = find_pic(target, accuracy)
     if leftTopPos is None:
         log.warning("【识图】识别 {0} 失败".format(target))
@@ -101,7 +100,7 @@ def find_pic_touch(target, accuracy = st.accuracy):
 
 
 # 寻找目标区块并将其拖动到某个位置
-def find_pic_slide(target, pos, accuracy = st.accuracy):
+def find_pic_slide(target, pos, accuracy=st.accuracy):
     leftTopPos = find_pic(target, accuracy)
     if leftTopPos is None:
         log.warning("【识图】识别 {0} 失败".format(target))
